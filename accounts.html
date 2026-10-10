@@ -20,7 +20,7 @@ html{
 }
 
 :root{
-    --background-image:url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2Fabstract-green-background-eri47g77a5kldngq.jpg&f=1&nofb=1&ipt=12758c9c34ae2e9d63ca03860486b249c713f04254fa9efebeee9a94d6280537&ipo=images');
+    --background-image:url('greenbackground.jpg');
     --background-blur:10px;
     --background-darkness:.10;
     --gfx-scroll-duration:85s;
@@ -363,6 +363,31 @@ main{
     margin-top:8px;
 }
 
+.account-filters{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:24px;
+}
+
+.account-filter{
+    appearance:none;
+    font-family:'Inter',sans-serif;
+    color:white;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.account-filter.active{
+    background:rgba(255,255,255,.15);
+    border-color:rgba(255,255,255,.4);
+}
+
+.account-filter.active:hover{
+    background:rgba(255,255,255,.2);
+}
+
 .accounts-grid{
     display:grid;
     grid-template-columns:repeat(5,minmax(0,1fr));
@@ -582,6 +607,7 @@ main{
     border:1px solid rgba(255,255,255,.12);
     background:rgba(255,255,255,.04);
     border-radius:22px;
+    grid-column:1 / -1;
 }
 
 footer{
@@ -703,6 +729,16 @@ footer{
         gap:12px;
     }
 
+    .account-filters{
+        gap:8px;
+        margin-bottom:20px;
+    }
+
+    .account-filter{
+        font-size:11px;
+        padding:8px 10px;
+    }
+
     .account-card{
         padding:9px;
         border-radius:19px;
@@ -816,6 +852,15 @@ footer{
         font-size:26px;
     }
 
+    .account-filters{
+        gap:7px;
+    }
+
+    .account-filter{
+        font-size:10px;
+        padding:7px 9px;
+    }
+
     .account-avatar{
         aspect-ratio:1 / 1;
     }
@@ -878,7 +923,7 @@ footer{
 <nav>
     <div class="nav-brand">
         <img src="https://tixidise.github.io/Tixidise.png" alt="Tixidise TIX" class="site-icon">
-        <span class="github-text">.github.io/accounts</span>
+        <span class="github-text">.github.io/accounts.html</span>
     </div>
 
     <div class="nav-right">
@@ -927,6 +972,17 @@ footer{
             <span class="account-count" id="accountCount">Loading accounts</span>
         </div>
 
+        <div class="account-filters" id="accountFilters">
+            <button class="account-count gfx-view-toggle account-filter active" type="button" data-filter="All" aria-pressed="true">All</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="A-Z" aria-pressed="false">A-Z</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Z-A" aria-pressed="false">Z-A</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Usernames" aria-pressed="false">Usernames</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Stacked" aria-pressed="false">Stacked</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Aged Account" aria-pressed="false">Aged Account</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Semi Stacked" aria-pressed="false">Semi Stacked</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Under30" aria-pressed="false">&lt;30 Items</button>
+        </div>
+
         <div class="accounts-grid" id="accountsGrid"></div>
 
         <div class="load-more-wrap">
@@ -950,24 +1006,33 @@ const gfxImages = [
 ];
 
 const accounts = [
-    {username:"p1neapp13z (2014)", profileUrl:"https://www.roblox.com/users/61509314/profile", thumbnail:"accountsanditemz/p1neapp13z.webp", description:"Stacked 9 pages hats all 2018 eggs red dino,beast mode bandana,8 bit heart face,cardboard shaggy", folder:"account-01", items:[
-        {name:"Best item 1", image:"https://tr.rbxcdn.com/180DAY-fda94fe4d563891730a5cda00c1da675/420/420/Hat/Webp/noFilter"},
-        {name:"Best item 2", image:"https://tr.rbxcdn.com/180DAY-6cb864dd59768897d84cc536d895b910/420/420/Hat/Webp/noFilter"},
-        {name:"Best item 3", image:"https://tr.rbxcdn.com/180DAY-12f466dd97ba1857f677b7c897f2d493/420/420/Hat/Webp/noFilter"},
-        {name:"Best item 4", image:"https://tr.rbxcdn.com/180DAY-e55ad3cd1b6c225eb870c35e488e081b/420/420/Hat/Webp/noFilter"},
-        {name:"Best item 5", image:"https://tr.rbxcdn.com/180DAY-77651a68461f988112ea3fba1188c5c1/420/420/Hat/Webp/noFilter"}
+    {username:"p1neapp13z (2014) (690+ Items)", profileUrl:"https://www.roblox.com/users/61509314/profile", thumbnail:"accountsanditemz/p1neapp13z.webp", description:"Stacked 9 pages hats all 2018 eggs red dino,beast mode bandana,8 bit heart face,cardboard shaggy", folder:"account-01", categories:["Stacked"], items:[
+        {name:"Best item 1", image:"accountsanditemz/Hiccup-s-Improved-Helmet.webp"},
+        {name:"Best item 2", image:"accountsanditemz/Amethyst-Antlers.webp"},
+        {name:"Best item 3", image:"accountsanditemz/Classic-ROBLOX-Pumpkin-Head.webp"},
+        {name:"Best item 4", image:"accountsanditemz/Green-Checkered-Lampshade.webp"},
+        {name:"Best item 5", image:"accountsanditemz/Playful-Red-Dino.webp"},
     ]},
-    {username:"p1neapp13z", profileUrl:"https://www.roblox.com/users/61509314/profile", thumbnail:"https://tr.rbxcdn.com/30DAY-Avatar-AFA58EC94808A2EC3A414F762EC1A2D2-Png/720/720/Avatar/Webp/noFilter", description:"2014 Account, Stacked 8 pages of hats all 2018 eggs +++ Notables", folder:"account-01", items:[
-        {name:"Best item 1", image:"https://example.com/item1.png"},
-        {name:"Best item 2", image:"https://example.com/item2.png"},
-        {name:"Best item 3", image:"https://example.com/item3.png"},
-        {name:"Best item 4", image:"https://example.com/item4.png"},
-        {name:"Best item 5", image:"https://example.com/item5.png"}
+    {username:"Livedsamples (2016) (268+ Items)", profileUrl:"https://www.roblox.com/users/112874158/profile", thumbnail:"accountsanditemz/livedsamples.webp", description:"2014 Account, Stacked 8 pages of hats all 2018 eggs +++ Notables", folder:"account-01", categories:["Stacked"], items:[
+        {name:"Best item 1", image:"accountsanditemz/"},
+        {name:"Best item 2", image:"accountsanditemz/Amethyst-Antlers"},
+        {name:"Best item 3", image:"accountsanditemz/"},
+        {name:"Best item 4", image:"accountsanditemz/"},
+        {name:"Best item 5", image:"accountsanditemz/"},
+    ]},
+    {username:"Bannsey (2020) (268+ Items) ()", profileUrl:"https://www.roblox.com/users/112874158/profile", thumbnail:"accountsanditemz/livedsamples.webp", description:"2014 Account, Stacked 8 pages of hats all 2018 eggs +++ Notables", folder:"account-01", categories:["Stacked"], items:[
+        {name:"Best item 1", image:"accountsanditemz/"},
+        {name:"Best item 2", image:"accountsanditemz/Amethyst-Antlers"},
+        {name:"Best item 3", image:"accountsanditemz/"},
+        {name:"Best item 4", image:"accountsanditemz/"},
+        {name:"Best item 5", image:"accountsanditemz/"},
     ]},
 ];
 
 const batchSize = 10;
 let renderedCount = 0;
+let activeFilter = "All";
+let currentAccounts = [];
 
 const gfxTrack = document.getElementById("gfxTrack");
 const gfxWindow = document.querySelector(".gfx-window");
@@ -976,6 +1041,7 @@ const accountsGrid = document.getElementById("accountsGrid");
 const loadMoreButton = document.getElementById("loadMoreButton");
 const loadStatus = document.getElementById("loadStatus");
 const accountCount = document.getElementById("accountCount");
+const accountFilters = document.getElementById("accountFilters");
 
 function createGfxSlide(gfx, index, duplicate){
     const slide = document.createElement("div");
@@ -1016,6 +1082,79 @@ function toggleGfxView(){
     gfxWindow.classList.toggle("is-grid",showAll);
     gfxViewToggle.textContent = showAll ? "Back" : "View all GFX";
     gfxViewToggle.setAttribute("aria-pressed",String(showAll));
+}
+
+function getStackedItemCount(account){
+    if(typeof account.itemCount === "number" && Number.isFinite(account.itemCount)){
+        return account.itemCount;
+    }
+
+    const usernameMatch = String(account.username || "").match(/([\d,]+)\s*\+?\s*items?\b/i);
+
+    if(usernameMatch){
+        return Number(usernameMatch[1].replace(/,/g,"")) || 0;
+    }
+
+    const descriptionMatch = String(account.description || "").match(/(\d+)\s*pages?\b/i);
+
+    if(descriptionMatch){
+        return (Number(descriptionMatch[1]) || 0) * 30;
+    }
+
+    return 0;
+}
+
+function getFilteredAccounts(){
+    if(activeFilter === "A-Z"){
+        return [...accounts].sort((a,b)=>
+            a.username.localeCompare(b.username,undefined,{sensitivity:"base"})
+        );
+    }
+
+    if(activeFilter === "Z-A"){
+        return [...accounts].sort((a,b)=>
+            b.username.localeCompare(a.username,undefined,{sensitivity:"base"})
+        );
+    }
+
+    if(activeFilter === "Under30"){
+        return accounts.filter(account=>
+            Number.isFinite(account.itemCount) && account.itemCount < 30
+        );
+    }
+
+    if(activeFilter === "All"){
+        return [...accounts];
+    }
+
+    if(activeFilter === "Stacked"){
+        return accounts
+            .filter(account=>
+                Array.isArray(account.categories) &&
+                account.categories.includes("Stacked")
+            )
+            .sort((a,b)=>getStackedItemCount(b)-getStackedItemCount(a));
+    }
+
+    return accounts.filter(account=>
+        Array.isArray(account.categories) &&
+        account.categories.includes(activeFilter)
+    );
+}
+
+function applyAccountFilter(filter){
+    activeFilter = filter;
+    currentAccounts = getFilteredAccounts();
+    renderedCount = 0;
+    accountsGrid.innerHTML = "";
+
+    accountFilters.querySelectorAll(".account-filter").forEach(button=>{
+        const isActive = button.dataset.filter === activeFilter;
+        button.classList.toggle("active",isActive);
+        button.setAttribute("aria-pressed",String(isActive));
+    });
+
+    renderNextBatch();
 }
 
 function createImageSlot(src, alt, fallbackText, className){
@@ -1131,16 +1270,26 @@ function createAccountCard(account){
 }
 
 function updateGalleryStatus(){
-    accountCount.textContent = `${renderedCount} of ${accounts.length} accounts`;
-    loadStatus.textContent = renderedCount >= accounts.length
-        ? `All ${accounts.length} accounts loaded.`
-        : `Showing ${renderedCount} of ${accounts.length} accounts.`;
+    accountCount.textContent = `${renderedCount} of ${currentAccounts.length} accounts`;
 
-    loadMoreButton.hidden = renderedCount >= accounts.length;
+    loadStatus.textContent = renderedCount < currentAccounts.length
+        ? `Showing ${renderedCount} of ${currentAccounts.length} accounts.`
+        : "";
+
+    loadMoreButton.hidden = renderedCount >= currentAccounts.length;
 }
 
 function renderNextBatch(){
-    const nextAccounts = accounts.slice(
+    if(currentAccounts.length === 0){
+        const emptyMessage = document.createElement("div");
+        emptyMessage.className = "empty-message";
+        emptyMessage.textContent = "No accounts in this section yet.";
+        accountsGrid.appendChild(emptyMessage);
+        updateGalleryStatus();
+        return;
+    }
+
+    const nextAccounts = currentAccounts.slice(
         renderedCount,
         renderedCount + batchSize
     );
@@ -1163,9 +1312,15 @@ function renderNextBatch(){
 }
 
 buildGfxCarousel();
-renderNextBatch();
+applyAccountFilter("All");
 
 gfxViewToggle.addEventListener("click",toggleGfxView);
+
+accountFilters.querySelectorAll(".account-filter").forEach(button=>{
+    button.addEventListener("click",()=>{
+        applyAccountFilter(button.dataset.filter);
+    });
+});
 
 loadMoreButton.addEventListener("click",()=>{
     renderNextBatch();
