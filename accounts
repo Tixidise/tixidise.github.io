@@ -797,7 +797,7 @@ footer{
 <nav>
     <div class="nav-brand">
         <img src="https://tixidise.github.io/Tixidise.png" alt="Tixidise TIX" class="site-icon">
-        <span class="github-text">.Github.io/accounts</span>
+        <span class="github-text">.github.io/accounts</span>
     </div>
 
     <div class="nav-right">
