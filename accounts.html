@@ -183,11 +183,15 @@ main{
 .gfx-heading{
     max-width:1700px;
     margin:0 auto;
-    padding:0 28px 20px;
+    padding:12px 28px 20px;
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
     gap:20px;
+}
+
+.gfx-heading > div{
+    min-width:0;
 }
 
 .gfx-heading h1{
@@ -210,6 +214,29 @@ main{
     white-space:nowrap;
 }
 
+.account-count{
+    flex-shrink:0;
+    color:white;
+    font-size:12px;
+    padding:9px 13px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:999px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(15px);
+}
+
+.gfx-view-toggle{
+    font-family:'Inter',sans-serif;
+    white-space:nowrap;
+    cursor:pointer;
+    transition:background .2s,border-color .2s;
+}
+
+.gfx-view-toggle:hover{
+    background:rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.3);
+}
+
 .gfx-window{
     width:100%;
     overflow:hidden;
@@ -229,7 +256,7 @@ main{
     will-change:transform;
 }
 
-.gfx-window:hover .gfx-track{
+.gfx-window:hover .gfx-track:not(.is-grid){
     animation-play-state:paused;
 }
 
@@ -270,6 +297,34 @@ main{
     text-shadow:0 2px 10px black;
 }
 
+.gfx-window.is-grid{
+    overflow:visible;
+    mask-image:none;
+    -webkit-mask-image:none;
+}
+
+.gfx-track.is-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    width:100%;
+    gap:20px;
+    padding:8px 28px 18px;
+    animation:none;
+    transform:none;
+    will-change:auto;
+}
+
+.gfx-track.is-grid .gfx-slide{
+    width:100%;
+    height:auto;
+    aspect-ratio:16 / 9;
+    min-width:0;
+}
+
+.gfx-track.is-grid .gfx-slide[aria-hidden="true"]{
+    display:none;
+}
+
 @keyframes gfx-scroll{
     from{
         transform:translateX(0);
@@ -306,17 +361,6 @@ main{
     font-size:14px;
     line-height:1.6;
     margin-top:8px;
-}
-
-.account-count{
-    flex-shrink:0;
-    color:white;
-    font-size:12px;
-    padding:9px 13px;
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:999px;
-    background:rgba(255,255,255,.05);
-    backdrop-filter:blur(15px);
 }
 
 .accounts-grid{
@@ -619,7 +663,12 @@ footer{
     }
 
     .gfx-heading{
-        padding:0 16px 16px;
+        padding:12px 16px 16px;
+        gap:10px;
+    }
+
+    .gfx-heading p{
+        font-size:12px;
     }
 
     .gfx-label{
@@ -629,6 +678,20 @@ footer{
     .gfx-slide{
         width:78vw;
         height:240px;
+    }
+
+    .gfx-track.is-grid{
+        gap:12px;
+        padding:8px 16px 18px;
+    }
+
+    .gfx-track.is-grid .gfx-slide{
+        border-radius:15px;
+    }
+
+    .gfx-view-toggle{
+        font-size:11px;
+        padding:8px 10px;
     }
 
     .accounts-section{
@@ -716,13 +779,31 @@ footer{
     }
 
     .gfx-heading p{
-        font-size:12px;
+        font-size:11px;
+    }
+
+    .gfx-heading{
+        gap:6px;
+    }
+
+    .gfx-view-toggle{
+        font-size:10px;
+        padding:7px 8px;
     }
 
     .gfx-slide{
         width:84vw;
         height:205px;
         border-radius:18px;
+    }
+
+    .gfx-track.is-grid{
+        gap:8px;
+        padding:8px 10px 18px;
+    }
+
+    .gfx-track.is-grid .gfx-slide{
+        border-radius:10px;
     }
 
     .section-heading{
@@ -827,8 +908,9 @@ footer{
         <div class="gfx-heading">
             <div>
                 <h1>Accounts</h1>
-                <h>there are stackeds, usernames and more.</p>
+                <p>there are stackeds, usernames and more.</p>
             </div>
+            <button class="account-count gfx-view-toggle" id="gfxViewToggle" type="button" aria-pressed="false">View all GFX</button>
         </div>
 
         <div class="gfx-window">
@@ -840,7 +922,7 @@ footer{
         <div class="section-heading">
             <div>
                 <h2>All accounts below.</h2>
-                <h>More accounts will be added i have a lot</p>
+                <p>More accounts will be added i have a lot</p>
             </div>
             <span class="account-count" id="accountCount">Loading accounts</span>
         </div>
@@ -888,6 +970,8 @@ const batchSize = 10;
 let renderedCount = 0;
 
 const gfxTrack = document.getElementById("gfxTrack");
+const gfxWindow = document.querySelector(".gfx-window");
+const gfxViewToggle = document.getElementById("gfxViewToggle");
 const accountsGrid = document.getElementById("accountsGrid");
 const loadMoreButton = document.getElementById("loadMoreButton");
 const loadStatus = document.getElementById("loadStatus");
@@ -924,6 +1008,14 @@ function buildGfxCarousel(){
     gfxImages.forEach((gfx, index)=>{
         gfxTrack.appendChild(createGfxSlide(gfx,index,true));
     });
+}
+
+function toggleGfxView(){
+    const showAll = gfxTrack.classList.toggle("is-grid");
+
+    gfxWindow.classList.toggle("is-grid",showAll);
+    gfxViewToggle.textContent = showAll ? "Back" : "View all GFX";
+    gfxViewToggle.setAttribute("aria-pressed",String(showAll));
 }
 
 function createImageSlot(src, alt, fallbackText, className){
@@ -1072,6 +1164,8 @@ function renderNextBatch(){
 
 buildGfxCarousel();
 renderNextBatch();
+
+gfxViewToggle.addEventListener("click",toggleGfxView);
 
 loadMoreButton.addEventListener("click",()=>{
     renderNextBatch();
