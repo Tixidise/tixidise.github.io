@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tixidise.github.io</title>
-<link rel="icon" type="image/png" href="images/logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Tixidise.github.io</title>
+  <link href="images/logo.png" rel="icon" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <style>
+   *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Inter',sans-serif;
 }
-
 html{
     scroll-behavior:smooth;
 }
-
+:root{
+    --background-image:url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2Fabstract-green-background-eri47g77a5kldngq.jpg&f=1&nofb=1&ipt=12758c9c34ae2e9d63ca03860486b249c713f04254fa9efebeee9a94d6280537&ipo=images');
+    --background-blur:10px;
+    --background-darkness:.10;
+    --project-text-outline:true;
+    --project-text-outline-thickness:1px;
+}
 body{
     background:#000;
     color:white;
     min-height:100vh;
     overflow-x:hidden;
+    position:relative;
+    isolation:isolate;
 }
-
 body::before{
     content:'';
     position:fixed;
-    inset:0;
-    background:
-        radial-gradient(circle at top, rgba(255,255,255,.08), transparent 40%),
-        radial-gradient(circle at bottom, rgba(255,255,255,.04), transparent 40%);
+    inset:-25px;
+    z-index:-2;
+    background-image:var(--background-image);
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    filter:blur(var(--background-blur));
     pointer-events:none;
-    z-index:-1;
 }
-
+body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:rgba(0,0,0,var(--background-darkness));
+    pointer-events:none;
+}
 nav{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     z-index:1000;
-
     display:flex;
-    justify-content:flex-start;
+    justify-content:space-between;
     align-items:center;
-
+    gap:20px;
     padding:16px 28px;
-
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(20px);
-
-    border-radius:0;
+    background:rgba(15,15,15,.3);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 }
-
 .nav-brand{
     display:flex;
     align-items:center;
     gap:12px;
+    min-width:0;
 }
-
 .site-icon{
     width:30%;
     max-width:500px;
@@ -72,110 +81,152 @@ nav{
     border:none;
     border-radius:0;
     display:block;
+    --logo-outline-color:white;
+    filter:
+        drop-shadow(1px 0 0 var(--logo-outline-color))
+        drop-shadow(-1px 0 0 var(--logo-outline-color))
+        drop-shadow(0 1px 0 var(--logo-outline-color))
+        drop-shadow(0 -1px 0 var(--logo-outline-color))
+        drop-shadow(1px 1px 0 var(--logo-outline-color))
+        drop-shadow(-1px -1px 0 var(--logo-outline-color))
+        drop-shadow(1px -1px 0 var(--logo-outline-color))
+        drop-shadow(-1px 1px 0 var(--logo-outline-color));
 }
-
 .github-text{
     font-family:'Inter',sans-serif;
     font-size:2rem;
     font-weight:700;
     color:white;
     white-space:nowrap;
+    position:relative;
+    right:4px;
+    top:16px;
 }
-
-.github-text{
-    position: relative;
-    right: 10px;
-    top: 16px;
+.nav-right{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:22px;
 }
-
-.logo{
-    font-size:1.5rem;
-    font-weight:800;
-    background:linear-gradient(to right,#fff,#bbb,#fff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.discord-info{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:4px;
+    white-space:nowrap;
 }
-
+.discord-username{
+    font-size:14px;
+    font-weight:600;
+    color:white;
+}
+.discord-id{
+    font-size:14px;
+    font-weight:600;
+    color:white;
+    user-select:all;
+}
+.socials{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+.social-link{
+    width:30px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform .2s,opacity .2s;
+}
+.social-link:hover{
+    transform:translateY(-3px);
+    opacity:.75;
+}
+.social-link img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+}
 .portfolio{
     max-width:1300px;
     margin:auto;
     padding:130px 25px 80px;
+    position:relative;
+    z-index:1;
 }
-
-.header{
-    text-align:center;
-    margin-bottom:60px;
-}
-
-.header h1{
-    font-size:clamp(2.5rem,6vw,5rem);
-    margin-bottom:15px;
-}
-
-.header p{
-    color:#a0a0a0;
-    max-width:650px;
-    margin:auto;
-}
-
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
     gap:25px;
 }
-
 .card-link{
     text-decoration:none;
     color:inherit;
     display:block;
 }
-
 .card{
     overflow:hidden;
-
-    background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.05),
-        rgba(255,255,255,.02)
-    );
-
-    border:1px solid rgba(255,255,255,.08);
-
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.12);
     border-radius:28px;
-
-    backdrop-filter:blur(20px);
-
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
     transition:.35s;
 }
-
 .card:hover{
     transform:translateY(-8px);
-    border-color:rgba(255,255,255,.15);
-    box-shadow:0 0 30px rgba(255,255,255,.05);
+    border-color:rgba(255,255,255,.25);
+    box-shadow:0 0 30px rgba(255,255,255,.07);
 }
-
 .card img{
     width:100%;
     height:240px;
     object-fit:cover;
     display:block;
 }
-
 .card-content{
     padding:25px;
 }
-
 .card-content h3{
     margin-bottom:10px;
     font-size:1.4rem;
 }
-
+.card-content h3,
 .card-content p{
-    color:#a3a3a3;
-    line-height:1.7;
+    --project-text-outline-shadow:
+        calc(var(--project-text-outline-thickness) * 1) 0 0 black,
+        calc(var(--project-text-outline-thickness) * -1) 0 0 black,
+        0 calc(var(--project-text-outline-thickness) * 1) 0 black,
+        0 calc(var(--project-text-outline-thickness) * -1) 0 black,
+        calc(var(--project-text-outline-thickness) * .7) calc(var(--project-text-outline-thickness) * .7) 0 black,
+        calc(var(--project-text-outline-thickness) * -.7) calc(var(--project-text-outline-thickness) * -.7) 0 black,
+        calc(var(--project-text-outline-thickness) * .7) calc(var(--project-text-outline-thickness) * -.7) 0 black,
+        calc(var(--project-text-outline-thickness) * -.7) calc(var(--project-text-outline-thickness) * .7) 0 black;
 }
-
+.card-content h3{
+    text-shadow:var(--project-text-outline-shadow);
+}
+.card-content p{
+    color:white;
+    line-height:1.7;
+    text-shadow:var(--project-text-outline-shadow);
+}
+:root{
+    --project-text-outline-enabled:1;
+}
+:root[style*="--project-text-outline: false"]{
+    --project-text-outline-enabled:0;
+}
+.card-content h3,
+.card-content p{
+    text-shadow:
+        calc(var(--project-text-outline-enabled) * var(--project-text-outline-thickness)) 0 0 black,
+        calc(var(--project-text-outline-enabled) * var(--project-text-outline-thickness) * -1) 0 0 black,
+        0 calc(var(--project-text-outline-enabled) * var(--project-text-outline-thickness)) 0 black,
+        0 calc(var(--project-text-outline-enabled) * var(--project-text-outline-thickness) * -1) 0 black;
+}
 .visit-btn{
     display:inline-block;
     margin-top:20px;
@@ -185,99 +236,159 @@ nav{
     color:black;
     font-weight:600;
 }
-
 footer{
     text-align:center;
-    padding:50px;
-    color:#666;
+    padding:35px;
+    color:#aaa;
+    position:relative;
+    z-index:1;
 }
-
 @media(max-width:768px){
-
     nav{
-        padding:14px 20px;
+        padding:12px 15px;
+        gap:10px;
     }
-
+    .site-icon{
+        width:100px;
+        max-width:100px;
+    }
+    .nav-brand{
+        gap:8px;
+    }
+    .github-text{
+        font-size:1.05rem;
+        right:0;
+        top:0;
+    }
+    .nav-right{
+        gap:10px;
+    }
+    .discord-username{
+        font-size:11px;
+    }
+    .discord-id{
+        font-size:11px;
+    }
+    .socials{
+        gap:8px;
+    }
+    .social-link{
+        width:23px;
+        height:23px;
+    }
+    .portfolio{
+        padding:110px 15px 60px;
+    }
     .grid{
         grid-template-columns:1fr;
     }
 }
-</style>
-</head>
-<body>
-
-<nav>
-    <div class="nav-brand">
-        <img src="https://tixidise.github.io/Tixidise.png" alt="Tixidise TIX" class="site-icon">
-        <span class="github-text">.Github.io</span>
+@media(max-width:480px){
+    nav{
+        padding:10px;
+        gap:6px;
+    }
+    .site-icon{
+        width:55px;
+        max-width:55px;
+    }
+    .nav-brand{
+        gap:4px;
+    }
+    .github-text{
+        font-size:.75rem;
+    }
+    .nav-right{
+        gap:7px;
+    }
+    .discord-username{
+        font-size:9px;
+    }
+    .discord-id{
+        font-size:9px;
+    }
+    .socials{
+        gap:5px;
+    }
+    .social-link{
+        width:18px;
+        height:18px;
+    }
+}
+  </style>
+ </head>
+ <body>
+  <nav>
+   <div class="nav-brand">
+    <img alt="Tixidise TIX" class="site-icon" src="https://tixidise.github.io/Tixidise.png"/>
+    <span class="github-text">.Github.io</span>
+   </div>
+   <div class="nav-right">
+    <div class="discord-info">
+     <span class="discord-username">ONLY TRUST: @Tixidise</span>
+     <span class="discord-id">USER ID: 518615823322054669</span>
     </div>
-</nav>
-
-<section class="portfolio">
-
-    <div class="grid">
-
-        <a href="https://tixidise.github.io/jakeing-it-dash/" target="_blank" class="card-link">
-            <div class="card">
-                <img src="images/jakeidydash.png" alt="Jakeidy Dash">
-
-                <div class="card-content">
-                    <h3>Jakeidy Dash</h3>
-
-                    <p>
-                        Very unfinished but works.
-                    </p>
-
-                    <span class="visit-btn">
-                        Play
-                    </span>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://tixidise.github.io/jakeing-it-dash/" target="_blank" class="card-link">
-            <div class="card">
-                <img src="images/project2.png" alt="Project 2">
-
-                <div class="card-content">
-                    <h3>Project</h3>
-
-                    <p>
-                        text
-                    </p>
-
-                    <span class="visit-btn">
-                        Visit
-                    </span>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://led2d.github.io/jakeing-it-dash/" target="_blank" class="card-link">
-            <div class="card">
-                <img src="images/project3.png" alt="Project 3">
-
-                <div class="card-content">
-                    <h3>Projec</h3>
-
-                    <p>
-                        texts
-                    </p>
-
-                    <span class="visit-btn">
-                        Visit
-                    </span>
-                </div>
-            </div>
-        </a>
-
+    <div class="socials">
+     <a aria-label="GitHub" class="social-link" href="https://github.com/tixidise" rel="noopener noreferrer" target="_blank">
+      <img alt="GitHub" src="https://cdn.simpleicons.org/github/ffffff"/>
+     </a>
+     <a aria-label="Discord" class="social-link" href="https://discord.gg/NJSnwypycb" rel="noopener noreferrer" target="_blank">
+      <img alt="Discord" src="https://cdn.simpleicons.org/discord/ffffff"/>
+     </a>
+     <a aria-label="YouTube" class="social-link" href="https://www.youtube.com/@Tixidise" rel="noopener noreferrer" target="_blank">
+      <img alt="YouTube" src="https://cdn.simpleicons.org/youtube/ffffff"/>
+     </a>
     </div>
-
-</section>
-
-<footer>
-    © 2026 TIX Enterprise. All rights reserved.
-</footer>
-
-</body>
+   </div>
+  </nav>
+  <section class="portfolio">
+   <div class="grid">
+    <a class="card-link" href="https://tixidise.github.io/jakeing-it-dash/" rel="noopener noreferrer" target="_blank">
+     <div class="card">
+      <img alt="Jakeidy Dash" src="https://github.com/Tixidise/tixidise.github.io/blob/main/images/jakeidydash.png?raw=true"/>
+      <div class="card-content">
+       <h3>
+        Jakeidy Dash
+       </h3>
+       <p>
+        Very unfinished but works.
+       </p>
+       <span class="visit-btn">Play</span>
+      </div>
+     </div>
+    </a>
+    <a class="card-link" href="https://tixidise.github.io/accounts/" rel="noopener noreferrer" target="_blank">
+     <div class="card">
+      <img alt="Project 2" src="https://i.postimg.cc/Y2vq7L6k/Untitled(1)-(1).png"/>
+      <div class="card-content">
+       <h3>
+        Accounts
+       </h3>
+       <p>
+        accounts i own / own with a friend
+       </p>
+       <span class="visit-btn">Visit</span>
+      </div>
+     </div>
+    </a>
+    <a class="card-link" href="https://led2d.github.io/placeholder/" rel="noopener noreferrer" target="_blank">
+     <div class="card">
+      <img alt="Project 3" src="images/project3.png"/>
+      <div class="card-content">
+       <h3>
+        Projec
+       </h3>
+       <p>
+        texts
+       </p>
+       <span class="visit-btn">Visit</span>
+      </div>
+     </div>
+    </a>
+   </div>
+  </section>
+  <footer>
+   Copyright © 2026 Tixidise. All rights reserved.
+  </footer>
+ </body>
 </html>
