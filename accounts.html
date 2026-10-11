@@ -1140,6 +1140,7 @@ function getStackedItemCount(account){
     return 0;
 }
 
+
 function getFilteredAccounts(){
     if(activeFilter === "A-Z"){
         return [...accounts].sort((a,b)=>
@@ -1155,7 +1156,8 @@ function getFilteredAccounts(){
 
     if(activeFilter === "Under30"){
         return accounts.filter(account=>
-            Number.isFinite(account.itemCount) && account.itemCount < 30
+            getStackedItemCount(account) < 30 &&
+            getStackedItemCount(account) > 0
         );
     }
 
@@ -1170,6 +1172,13 @@ function getFilteredAccounts(){
                 account.categories.includes("Stacked")
             )
             .sort((a,b)=>getStackedItemCount(b)-getStackedItemCount(a));
+    }
+
+    if(activeFilter === "Stacked as fuck"){
+        return accounts.filter(account=>
+            Array.isArray(account.categories) &&
+            account.categories.includes("Stacked as fuck")
+        );
     }
 
     return accounts.filter(account=>
