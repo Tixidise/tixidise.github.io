@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1085,14 +1084,7 @@ const accounts = [
         {name:"Best item 4", image:"accountsanditemz/Summer-Commando.webp"},
         {name:"Best item 5", image:"accountsanditemz/Eg.webp"},
     ]},
-    {username:"98850 (2007)", profileUrl:"https://www.roblox.com/users/98851/profile", thumbnail:"accountsanditemz/98850.webp", description:"SUPER RARE ACCOUNT THE ID IS 98851 AND THE USERNAME IS 98850 AND ITS 2007 VERY RARE ONE OF A KIND", folder:"account-01", categories:["Aged Account", "Usernames"], items:[
-        {name:"Best item 1", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 2", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 3", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 4", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 5", image:"accountsanditemz/Itemhere.webp"},
-    ]},
-    {username:"NAMEOFACCOUNT (ACCOUNT YEAR HERE ) (AMOUNT OF ITEMS THE ACC HAS HERE)", profileUrl:"Put the URL of the account in here", thumbnail:"accountsanditemz/put_account_name_in_here.webp", description:"Write a description for the account here", folder:"account-01", categories:["Stacked"], items:[
+    {username:"98850 (2007) (AMOUNT OF ITEMS THE ACC HAS HERE)", profileUrl:"https://www.roblox.com/users/98851/profile", thumbnail:"accountsanditemz/put_account_name_in_here.webp", description:"SUPER RARE ACCOUNT THE ID IS 98851 AND THE USERNAME IS 98850 AND ITS 2007 VERY RARE ONE OF A KIND", folder:"account-01", categories:["Aged Account", "Usernames"], items:[
         {name:"Best item 1", image:"accountsanditemz/Itemhere.webp"},
         {name:"Best item 2", image:"accountsanditemz/Itemhere.webp"},
         {name:"Best item 3", image:"accountsanditemz/Itemhere.webp"},
@@ -1329,38 +1321,57 @@ function createAccountCard(account){
     description.textContent = account.description || "";
     info.appendChild(description);
 
+    const hasNoNotables = Array.isArray(account.categories) &&
+        account.categories.some(category =>
+            category === "Usernames" || category === "Aged Account"
+        );
+
     const itemsHeading = document.createElement("div");
     itemsHeading.className = "items-heading";
     itemsHeading.textContent = "Notables";
-    info.appendChild(itemsHeading);
 
     const itemsRow = document.createElement("div");
     itemsRow.className = "item-thumbnails";
 
-    for(let i = 0; i < 5; i++){
-        const itemData = account.items && account.items[i]
-            ? account.items[i]
-            : null;
+    if(hasNoNotables){
+        itemsHeading.style.visibility = "hidden";
+        itemsHeading.setAttribute("aria-hidden","true");
 
-        const itemName = typeof itemData === "object" && itemData !== null
-            ? itemData.name
-            : itemData || `Item ${i + 1}`;
+        itemsRow.style.visibility = "hidden";
+        itemsRow.setAttribute("aria-hidden","true");
 
-        const itemImage = typeof itemData === "object" && itemData !== null
-            ? itemData.image
-            : `images/accounts/${account.folder}-item-${i + 1}.png`;
+        for(let i = 0; i < 5; i++){
+            const item = document.createElement("div");
+            item.className = "item-slot";
+            itemsRow.appendChild(item);
+        }
+    }else{
+        for(let i = 0; i < 5; i++){
+            const itemData = account.items && account.items[i]
+                ? account.items[i]
+                : null;
 
-        const item = createImageSlot(
-            itemImage,
-            itemName,
-            String(i + 0),
-            "item-slot"
-        );
+            const itemName = typeof itemData === "object" && itemData !== null
+                ? itemData.name
+                : itemData || `Item ${i + 1}`;
 
-        item.title = itemName;
-        itemsRow.appendChild(item);
+            const itemImage = typeof itemData === "object" && itemData !== null
+                ? itemData.image
+                : `images/accounts/${account.folder}-item-${i + 1}.png`;
+
+            const item = createImageSlot(
+                itemImage,
+                itemName,
+                String(i + 0),
+                "item-slot"
+            );
+
+            item.title = itemName;
+            itemsRow.appendChild(item);
+        }
     }
 
+    info.appendChild(itemsHeading);
     info.appendChild(itemsRow);
 
     if(account.profileUrl && account.profileUrl.trim()){
