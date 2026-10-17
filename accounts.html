@@ -1190,7 +1190,7 @@ const accounts = [
         {name:"Best item 4", image:"accountsanditemz/Itemhere.webp"},
         {name:"Best item 5", image:"accountsanditemz/Itemhere.webp"},
     ]},
-];
+].filter(account => !String(account.username || "").toLowerCase().includes("place_holder"));
 
 const batchSize = 10;
 let renderedCount = 0;
