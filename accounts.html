@@ -1282,15 +1282,19 @@ function getFilteredAccounts(){
 
     if(activeFilter === "Under30"){
         return accounts.filter(account=>
-            getStackedItemCount(account) < 30 &&
-            getStackedItemCount(account) > 0
+            Array.isArray(account.categories) &&
+            account.categories.some(category=>
+                category.toLowerCase() === "under30"
+            )
         );
     }
 
     if(activeFilter === "Mid accounts"){
         return accounts.filter(account=>
             Array.isArray(account.categories) &&
-            account.categories.some(category => category.toLowerCase() === "mid accounts")
+            account.categories.some(category=>
+                category.toLowerCase() === "mid accounts"
+            )
         );
     }
 
