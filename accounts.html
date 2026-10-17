@@ -981,6 +981,7 @@ footer{
             <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Stacked" aria-pressed="false">Stacked</button>
             <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Aged Account" aria-pressed="false">Aged Account</button>
             <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Semi Stacked" aria-pressed="false">Semi Stacked</button>
+            <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Mid accounts" aria-pressed="false">Mid accounts</button>
             <button class="account-count gfx-view-toggle account-filter" type="button" data-filter="Under30" aria-pressed="false">&lt;30 Items</button>
         </div>
 
@@ -1126,26 +1127,26 @@ const accounts = [
         {name:"Best item 4", image:"accountsanditemz/Verified-Sign.webp"},
         {name:"Best item 5", image:"accountsanditemz/Knight-of-the-Blood-Moon.webp"},
     ]},
-    {username:"roblox_user_34697922 (2012) (31+ Items)", profileUrl:"https://www.roblox.com/users/34697922/profile", thumbnail:"accountsanditemz/roblox_user_34697922.webp", description:"Comes with a free name change! Candy cane antlers builders club and more", folder:"account-01", categories:["Under30"], items:[
+    {username:"roblox_user_34697922 (2012) (31+ Items)", profileUrl:"https://www.roblox.com/users/34697922/profile", thumbnail:"accountsanditemz/roblox_user_34697922.webp", description:"Comes with a free name change! Candy cane antlers builders club and more", folder:"account-01", categories:["Mid accounts"], items:[
         {name:"Best item 1", image:"accountsanditemz/Candy-Cane-Antlers.webp"},
         {name:"Best item 2", image:"accountsanditemz/Opened-Self-Referential-Gift-of-Referring.webp"},
         {name:"Best item 3", image:"accountsanditemz/Paper-Tix-Hat.webp"},
         {name:"Best item 4", image:"accountsanditemz/Kuddle-E-Koala.webp"},
         {name:"Best item 5", image:"accountsanditemz/Builders-Club-Hard-Hat.webp"},
     ]},
-    {username:"ChayseSooKool781 (2013) (145 Items)", profileUrl:"https://www.roblox.com/users/39776711/profile", thumbnail:"accountsanditemz/ChayseSooKool781.webp", description:"2013 Account, Korblox + offsales, 21000+ summary, amazon exclusive giftcard items, Unclaimed stripe+ more", folder:"account-01", categories:["Semi Stacked"], items:[
+    {username:"ChayseSooKool781 (2013) (145 Items)", profileUrl:"https://www.roblox.com/users/39776711/profile", thumbnail:"accountsanditemz/ChayseSooKool781.webp", description:"2013 Account, Korblox + offsales, 21000+ summary, amazon exclusive giftcard items, Unclaimed stripe+ more", folder:"account-01", categories:["Mid accounts"], items:[
         {name:"Best item 1", image:"accountsanditemz/Korblox-Deathspeaker.webp"},
         {name:"Best item 2", image:"accountsanditemz/Sakura-Antlers.webp"},
         {name:"Best item 3", image:"accountsanditemz/Builders-Club-Hard-Hat.webp"},
         {name:"Best item 4", image:"accountsanditemz/Halloween-Plaid-Cap.webp"},
         {name:"Best item 5", image:"accountsanditemz/Stylish-ROBLOX-Scarf.webp"},
     ]},
-    {username:"place_holder (year) (items)", profileUrl:"URL of the acc", thumbnail:"accountsanditemz/put_account_name_in_here.webp", description:"description", folder:"account-01", categories:["Aged Account"], items:[
-        {name:"Best item 1", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 2", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 3", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 4", image:"accountsanditemz/Itemhere.webp"},
-        {name:"Best item 5", image:"accountsanditemz/Itemhere.webp"},
+    {username:"JellyBailey006 (2015) (48 Items)", profileUrl:"https://www.roblox.com/users/75696194/profile", thumbnail:"accountsanditemz/JellyBailey006.webp", description:"Has a ton of 2016 eggs, 1 2017 egg and even one from 2018 ! Also has the Mystical Eggchemist egg an uncommon 2016 egg.", folder:"account-01", categories:["Mid accounts"], items:[
+        {name:"Best item 1", image:"accountsanditemz/Mystical-Eggchemist.webp"},
+        {name:"Best item 2", image:"accountsanditemz/Springtime-2014-R-R-R.webp"},
+        {name:"Best item 3", image:"accountsanditemz/Nerf-Bandana.webp"},
+        {name:"Best item 4", image:"accountsanditemz/Strawbeggy.webp"},
+        {name:"Best item 5", image:"accountsanditemz/Scribbled-Egg.webp"},
     ]},
     {username:"place_holder (year) (items)", profileUrl:"URL of the acc", thumbnail:"accountsanditemz/put_account_name_in_here.webp", description:"description", folder:"account-01", categories:["Aged Account"], items:[
         {name:"Best item 1", image:"accountsanditemz/Itemhere.webp"},
@@ -1270,6 +1271,13 @@ function getFilteredAccounts(){
             getStackedItemCount(account) < 30 &&
             getStackedItemCount(account) > 0
         );
+    }
+
+    if(activeFilter === "Mid accounts"){
+        return accounts.filter(account=>{
+            const itemCount = getStackedItemCount(account);
+            return itemCount >= 30 && itemCount <= 100;
+        });
     }
 
     if(activeFilter === "All"){
