@@ -453,6 +453,7 @@ footer{text-align:center;padding:32px 18px;color:white;position:relative;z-index
             <button class="primary" id="generate" disabled>Generate 30 images</button>
         </div>
         <div class="progress" id="progress"><div id="bar"></div></div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
     </section>
 
     <section class="panel" id="resultsPanel" hidden>
@@ -469,14 +470,7 @@ footer{text-align:center;padding:32px 18px;color:white;position:relative;z-index
 (() => {
     'use strict';
 
-    const sizes = [
-        [4000,1000],[3000,2500],[1920,1080],[1600,1200],[2500,1400],
-        [1200,1600],[3000,1000],[1000,3000],[2048,2048],[3840,2160],
-        [2160,3840],[2560,1440],[1440,2560],[1800,1200],[1200,1800],
-        [3200,1800],[1800,3200],[2800,2100],[2100,2800],[3500,1500],
-        [1500,3500],[2400,1600],[1600,2400],[2700,1800],[1800,2700],
-        [3600,2400],[2400,3600],[3200,1200],[1200,3200],[2200,1700]
-    ];
+    const sizes = Array.from({length:30}, () => [800,800]);
 
     const defaultPresets = [
         {src:'terminationpresets/ha.png'},
@@ -772,7 +766,7 @@ footer{text-align:center;padding:32px 18px;color:white;position:relative;z-index
                 randomDot(ctx, width, height);
 
                 const blob = await canvasBlob(canvas);
-                const name = `${safeName(selectedFile.name)}_${width}x${height}.png`;
+                const name = `${safeName(selectedFile.name)}_variation_${String(index + 1).padStart(2,'0')}_${width}x${height}.png`;
                 const previewUrl = URL.createObjectURL(blob);
                 generated.push({name, blob, width, height, previewUrl});
 
